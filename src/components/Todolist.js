@@ -10,15 +10,16 @@ export class Todolist extends React.Component {
 
   render() {
     // destructure form props
-    const {id, title } = this.props.todo
+    const { id, title } = this.props.todo;
     return (
       <Fragment>
         <li style={this.getStyles()}>
           <input
-            type="checkbox"
-            onChange={this.props.markComplete.bind(this,id)}
+            type="checkbox" checked={this.props.todo.completed}
+            onChange={this.props.markComplete.bind(this, id)}
           />
           {title}
+          <button style={btnStyle} onClick ={this.props.deleteTodo.bind(this, id)}>X</button>
         </li>
       </Fragment>
     );
@@ -28,5 +29,15 @@ export class Todolist extends React.Component {
 // PropTypes
 Todolist.propTypes = {
   todo: PropTypes.object.isRequired,
+};
+
+const btnStyle = {
+  cursor: "pointer",
+  borderRadius: "50%",
+  backgroundColor: "red",
+  color: "#fff",
+  border: "none",
+  marginLeft: "5px",
+  padding: "5px 10px",
 };
 export default Todolist;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Todo from "./components/Todo";
+import AddTodo from "./components/AddTodo";
 // import axios from 'axios';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     { id: 3, title: "Eat food", completed: true },
   ]);
 
+  // Mark complete
   const markComplete = (id) => {
     // console.log(id);
     let res = todos.map((todo) => {
@@ -22,10 +24,23 @@ function App() {
     setTodos(res);
   };
 
+  // delete todo
+  const deleteTodo = (id) =>{
+    let res = [...todos.filter(todo => todo.id !== id)];
+    setTodos(res);
+  }
+
+  // add todo
+  const addTodo = (title) =>{
+    const newTodo = {id:todos.length+1, title:title, completed: false}
+    setTodos([...todos, newTodo]);
+  }
+
   return (
     <div className="App">
       <div>Hello {name}</div>
-      <Todo todos={todos} markComplete={markComplete} />
+      <AddTodo addTodo={addTodo}/>
+      <Todo todos={todos} markComplete={markComplete} deleteTodo = {deleteTodo}/>
     </div>
   );
 }

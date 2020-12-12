@@ -12,6 +12,7 @@ export class Todo extends React.Component {
             key={todo.id}
             todo={todo}
             markComplete={this.props.markComplete}
+            deleteTodo={this.props.deleteTodo}
           />
         ))}
       </ul>
