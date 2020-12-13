@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 const AddTodo = (props) => {
   const [title, setTitle] = useState("");
-  const onSubmit = (e) =>{
+  const onSubmit = (e) => {
     e.preventDefault();
     props.addTodo(title);
     setTitle("");
-  }
+  };
 
   return (
     <div>

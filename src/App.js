@@ -1,16 +1,25 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import Todo from "./components/Todo";
+import About from "./components/About";
 import AddTodo from "./components/AddTodo";
-// import axios from 'axios';
+import axios from "axios";
+import "./App.css";
 
 function App() {
   const name = "Bishal Udash";
-  const [todos, setTodos] = useState([
-    { id: 1, title: "Learn react", completed: false },
-    { id: 2, title: "Integrate with BE", completed: false },
-    { id: 3, title: "Eat food", completed: true },
-  ]);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    getTodos();
+  }, []);
+
+  // get totos
+  const getTodos = async () => {
+    let res = await axios.get("https://jsonplaceholder.typicode.com/todos");
+    setTodos(res.data);
+  };
 
   // Mark complete
   const markComplete = (id) => {
@@ -25,23 +34,38 @@ function App() {
   };
 
   // delete todo
-  const deleteTodo = (id) =>{
-    let res = [...todos.filter(todo => todo.id !== id)];
+  const deleteTodo = (id) => {
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+    let res = [...todos.filter((todo) => todo.id !== id)];
     setTodos(res);
-  }
+  };
 
   // add todo
-  const addTodo = (title) =>{
-    const newTodo = {id:todos.length+1, title:title, completed: false}
-    setTodos([...todos, newTodo]);
-  }
+  const addTodo = async (title) => {
+    let res = await axios.post("https://jsonplaceholder.typicode.com/todos", {
+      title: title,
+      completed: false,
+    });
+    console.log(res.data);    
+    setTodos([...todos, res.data]);
+  };
 
   return (
-    <div className="App">
-      <div>Hello {name}</div>
-      <AddTodo addTodo={addTodo}/>
-      <Todo todos={todos} markComplete={markComplete} deleteTodo = {deleteTodo}/>
-    </div>
+    <Router>
+      <div className="App">
+        <Route path={"/" || "/dashboard"}>
+          <div>Hello {name}</div>
+          <AddTodo addTodo={addTodo} />
+          <Todo
+            todos={todos}
+            markComplete={markComplete}
+            deleteTodo={deleteTodo}
+          />
+        </Route>
+
+        <Route exact path="/about" component={About}></Route>
+      </div>
+    </Router>
   );
 }
 
