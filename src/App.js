@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
 
 import Todo from "./components/Todo";
 import About from "./components/About";
@@ -55,12 +55,12 @@ function App() {
       <div className="App">
         <Route path={"/" || "/dashboard"}>
           <div>Hello {name}</div>
-          <AddTodo addTodo={addTodo} />
+          {/*<AddTodo addTodo={addTodo} />
           <Todo
             todos={todos}
             markComplete={markComplete}
             deleteTodo={deleteTodo}
-          />
+          />*/}
         </Route>
 
         <Route exact path="/about" component={About}></Route>
