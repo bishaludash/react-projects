@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route, useRouteMatch ,NavLink, Redirect} from "react-router-dom";
+import { Switch, Route, useRouteMatch ,NavLink} from "react-router-dom";
 import Detail from './Detail';
 import Work from './Work';
 
@@ -22,7 +22,6 @@ const Home = () => {
         <Route path='/home' exact render={()=>{return "this is home"}} />
         <Route path='/home/details' exact component={Detail} />
         <Route path='/home/works' exact component={Work} />
-        <Redirect to={()=>{return "not found"}}></Redirect>
       </Switch>
     </div>
   )
